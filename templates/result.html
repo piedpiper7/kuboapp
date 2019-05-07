@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+	<title>{% block title %}试卷答案{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+
+    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+
+</head>
+<body>
+
+
+ <header>
+        <div class="header">
+            <div class="top">
+                <div class="c-box fff-box">
+                <div class="header-box">
+                    <p class="fl tips">☺ 跬步在线学习平台</p>
+                    {% if request.user.is_authenticated %}
+                        <div class="personal">
+                            <dl class="mes fr">
+                                <a href="{% url 'users:user_info' %}"><img class="photo" width="30" height="30"  src="{{ MEDIA_URL }}{{ request.user.image }}"
+                                /></a>
+                                <dd>{{ request.user.username }}</dd>
+                            </dl>
+
+                        </div>
+                    {% else %}
+                        <a class="fr register-btn" href="{% url 'register' %}">注册</a>
+                        <a class="fr login-btn" href="{% url 'login' %}">登录</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            </div>
+
+        </div>
+    </header>
+<div class="user-bg">
+    <div style="height: 50px"></div>
+    <p class="title-r">试卷答案</p>
+    <div class="re-bg">
+    <p class="answer-r">我的答案：<span id="user-an"></span></p>
+    <p class="answer-r" style="color: green">标准答案：<span id="user-an1"></span></p>
+    </div>
+{#    <a href="{% url 'paper:topic_list' %}">返回试卷页</a>#}
+    <div style="height: 80px"></div>
+    <a class="re-type-list" style="margin-top: 50px" href="{% url 'paper:type_list' %}">[返回类型列表页]</a>
+</div>
+
+ <footer>
+    <div class="footer-a">
+        <p>@跬步在线做题平台-保留所有权利</p>
+		<div class="footer-b">
+            <p><span style="margin-right: 200px">☺ 服务热线：123456</span>copyright © 2018 ICP备案证书号：津ICP备xxxxx号-1 ☺</p>
+
+		</div>
+    </div>
+
+	</footer>
+
+<script>
+    var answers = window.location.search;
+    var n = answers.split('?');
+    var num = n[1];
+    document.getElementById("user-an").innerHTML = n[2];
+
+    $.ajax({
+        url: '/paper/page',
+        type: 'GET',
+        dataType:'json',
+        data: {'num': num},
+        success: function (result) {
+            var final = JSON.stringify(result);
+            var n =final.split('answer":"');
+            var answer = '';
+            for(var i=1;i<n.length;i++){
+                answer += n[i].substr(0,1) + '&nbsp;&nbsp;&nbsp;';
+            }
+            document.getElementById("user-an1").innerHTML = answer;
+        }
+    })
+</script>
+</body>
+</html>

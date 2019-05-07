@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head>
+	<meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+	<title>{% block title %}类型首页{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    {% block custom_css %}{% endblock %}
+
+    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}" type="text/javascript"></script>
+
+</head>
+<body>
+
+    <header>
+        <div class="header">
+            <div class="top">
+                <div class="c-box fff-box">
+                <div class="header-box">
+                    <p class="fl tips">☺ 跬步在线学习平台</p>
+                    {% if request.user.is_authenticated %}
+                        <div class="personal">
+                            <dl class="mes fr">
+                                <a href="{% url 'users:user_info' %}"><img class="photo" width="30" height="30"  src="{{ MEDIA_URL }}{{ request.user.image }}"
+                                /></a>
+                                <dd>{{ request.user.username }}</dd>
+                            </dl>
+
+                        </div>
+                    {% else %}
+                        <a class="fr register-btn" href="{% url 'register' %}">注册</a>
+                        <a class="fr login-btn" href="{% url 'login' %}">登录</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            </div>
+
+        </div>
+    </header>
+
+    <div class="t-names">
+        <p class="t-name">{{ types.name }}</p>
+    </div>
+    <p class="type-index"><a style="color: #cc3434" href="{% url 'index' %}">回到首页</a></p>
+        <div class="ty-list">
+        {% for type in all_types %}
+            {% if type.parents_id == types.id %}
+                <div class="list-e">
+                <a href="{%  url 'paper:paper_list' type.id %}">
+                    <img class="im-e fl" width="321" height="179" src="{{ MEDIA_URL }}{{ type.image }}"/>
+                </a>
+                <a href="{%  url 'paper:paper_list' type.id %}">
+                    <p class="p-name fl">{{ type.name }}</p>
+                </a>
+                    <p class="logo-a">◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈</p>
+                <pre class="p-instr fl">{{ type.instr }}</pre>
+                <p class="click_num">
+                    ❤ 点击人数：{{ type.click }}
+                </p>
+                </div>
+            {% endif %}
+        {% endfor %}
+         </div>
+
+{#      <div class="right" id="paper_con">#}
+{#{% for type in all_types %}#}
+{#    {% for paper in all_papers %}#}
+{#    {% if type.parents_id == types.id and paper.types_id == type.id %}#}
+{##}
+{#        {% if paper.types_id == type.id %}#}
+{#        <p>{{ paper.name }}</p>#}
+{#            {% endif %}#}
+{##}
+{#    {% endif %}#}
+{#        {% endfor %}#}
+{#      {% endfor %}#}
+{#    </div>#}
+
+<footer>
+    <div class="footer-a">
+        <p>@跬步在线做题平台-保留所有权利</p>
+		<div class="footer-b">
+{#            <p></p>#}
+            <p><span style="margin-right: 200px">☺ 服务热线：123456</span>copyright © 2018 ICP备案证书号：津ICP备xxxxx号-1 ☺</p>
+
+		</div>
+    </div>
+	</footer>
+
+</body>
+</html>
+{##}
+{#<script>#}
+{#    $(function () {#}
+{#        $("#jsClick").click(function () {#}
+{#            $.ajax({#}
+{#                type:"post",#}
+                {#url:"/type_paper/{{ type_id }}",#}
+{#                url:"{% url 'paper:type_click' %}",#}
+{#                data:{ type_p:{{  }} },#}
+{#                success:function (data) {#}
+{#                    if(data=="success")#}
+{#                    {#}
+{#                        $("#paper_con").html(data)#}
+{#                    }#}
+{#                }#}
+{#            })#}
+{#        })#}
+{#    })#}
+{#</script>#}
+{#<script type="text/javascript">#}
+{##}
+{#    $("#click_t").click(function () {#}
+{#        var paper_type = this.value;#}
+{#        $.ajax({#}
+{#            type:"post",#}
+{#            url:"{% url 'paper:type_click' %}",#}
+{#            data:{#}
+{#                'paper_type':paper_type,#}
+{#            },#}
+{#            success:function () {#}
+{#                #}
+{#            }#}
+{#        })#}
+{#    })#}
+{#</script>#}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+	<title>{% block title %}试卷首页{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    {% block custom_css %}{% endblock %}
+
+    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}" type="text/javascript"></script>
+</head>
+<body>
+
+ <header>
+        <div class="header">
+            <div class="top">
+                <div class="c-box fff-box">
+                <div class="header-box">
+                    <p class="fl tips">☺ 跬步在线学习平台</p>
+                    {% if request.user.is_authenticated %}
+                        <div class="personal">
+                            <dl class="mes fr">
+                                <a href="{% url 'users:user_info' %}"><img class="photo" width="30" height="30"  src="{{ MEDIA_URL }}{{ request.user.image }}"
+                                /></a>
+                                <dd>{{ request.user.username }}</dd>
+                            </dl>
+
+                        </div>
+                    {% else %}
+                        <a class="fr register-btn" href="{% url 'register' %}">注册</a>
+                        <a class="fr login-btn" href="{% url 'login' %}">登录</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            </div>
+
+        </div>
+    </header>
+ <p class="paper-name">✪ {{ types.name }}</p>
+ <div class="bg-paper">
+<div class="paper-all">
+{% for paper in all_papers %}
+    <div class="paper-list">
+        <p><a class="topic-list" href="{% url 'paper:topic_list' paper.id %}"><span style="text-decoration: underline  green; font-size: 18px; padding-right: 300px;color: #CC3434">{{ paper.name }}</span></a>
+            № <span style="color: #666666">题目数量：{{ paper.num }}</span><span style="padding-right: 100px; padding-left: 100px">
+                ❤ <span style="color: #666666">点击人数：{{ paper.student }}</span></span>★ <span style="color: #666666;" >
+                难度：{{ paper.level }}</span></p>
+    </div>
+{% endfor %}
+</div>
+ </div>
+<footer>
+    <div class="footer-a">
+        <p>@跬步在线做题平台-保留所有权利</p>
+		<div class="footer-b">
+{#            <p></p>#}
+            <p><span style="margin-right: 200px">☺ 服务热线：123456</span>copyright © 2018 ICP备案证书号：津ICP备xxxxx号-1 ☺</p>
+
+		</div>
+    </div>
+
+	</footer>
+
+</body>
+</html>

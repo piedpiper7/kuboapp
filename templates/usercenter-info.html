@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+	<title>个人中心</title>
+    	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}" type="text/javascript"></script>
+</head>
+<body>
+ <header>
+        <div class="header">
+            <div class="top">
+                <div class="c-box fff-box">
+                <div class="header-box">
+                    <p class="fl tips">☺ 跬步在线学习平台</p>
+                </div>
+            </div>
+
+            </div>
+
+        </div>
+    </header>
+ <div class="user-bg">
+
+     <div class="user-info">
+         <p style=" font-size: 22px;font-family: sans-serif;color: #CC1111; margin-left: 370px">个人中心</p>
+         <div class="personal_des ">
+			<div class="inforcon">
+				<div class="left" style="width:242px;">
+                    <iframe id='frameFile' name='frameFile' style='display: none;'></iframe>
+                    <form class="clearfix" id="jsAvatarForm" enctype="multipart/form-data" autocomplete="off" method="post" action="{% url 'users:image_upload' %}" target='frameFile'>
+                        <label class="changearea" for="avatarUp">
+                            <span id="avatardiv" class="pic">
+                                <img width="100" height="100" class="js-img-show" id="avatarShow" src="{{ MEDIA_URL }}{{ request.user.image }}"/>
+                            </span>
+                            <span class="fl upload-inp-box " >
+                                <span class="btn-c-i" id="jsAvatarBtn">修改头像</span>
+                                <p>
+                                <input style="margin-top: 20px" type="file" name="image" id="avatarUp" class="js-img-up choice-f"/>
+                                </p>
+                            </span>
+                        </label>
+                        <input type='hidden' name='csrfmiddlewaretoken' value='799Y6iPeEDNSGvrTu3noBrO4MBLv6enY' />
+                        {% csrf_token %}
+                    </form>
+                    <div class="button-c-p">
+                        <a  id="jsUserResetPwd">修改密码</a>
+                    </div>
+				</div>
+				<form class="perinform" id="jsEditUserForm" autocomplete="off">
+					<ul class="right-2">
+						<li>用&nbsp;&nbsp;戶&nbsp;&nbsp;名：
+                           <input type="text" name="name" id="name" value="{{ request.user.username }}" maxlength="10">
+                            <i class="error-tips"></i>
+                        </li>
+						<li>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"  name="gender" value="male" {% if request.user.gender == 'male' %}checked="checked"{% endif %} >男</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="female" {% if request.user.gender == 'female' %}checked="checked"{% endif %}>女</label>
+						</li>
+						<li>手&nbsp;&nbsp;机&nbsp;&nbsp;号：
+                            <input type="text" name="mobile" id="mobile" placeholder="请输入你的手机号码" value="{{ request.user.mobile|default_if_none:'' }}" maxlength="10">
+                        </li>
+                        <li>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：
+                        	<input class="borderno" type="text" name="email" readonly="readonly" value="{{ request.user.email }}"/>
+                    	</li>
+						<li >
+							<input class="btn-save" type="button" id="jsEditUserBtn" value="保存">
+						</li>
+					</ul>
+                    <input type='hidden' name='csrfmiddlewaretoken' value='799Y6iPeEDNSGvrTu3noBrO4MBLv6enY' />
+                {% csrf_token %}
+				</form>
+			</div>
+		</div>
+     </div>
+ </div>
+ </div>
+
+
+    </div>
+
+<footer>
+    <div class="footer-a">
+        <p>@跬步在线做题平台-保留所有权利</p>
+		<div class="footer-b">
+            <p><span style="margin-right: 200px">☺ 服务热线：123456</span>copyright © 2018 ICP备案证书号：津ICP备xxxxx号-1 ☺</p>
+
+		</div>
+    </div>
+	</footer>
+{#<script src="{% static 'js/selectUi.js' %}" type='text/javascript'></script>#}
+<script src="{% static 'js/validate.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/plugins/jquery.upload.js' %}" type='text/javascript'></script>
+
+<script src="{% static 'js/deco-user.js' %}"></script>
+
+</body>
+</html>

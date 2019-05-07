@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}跬步在线做题平台-题目类型{% endblock %}
+{% load  staticfiles %}
+
+{% block content %}
+
+        {% for type in all_type %}
+
+            {% if type.is_parents %}
+                <div class="list-e">
+                <a href="{%  url 'paper:type_paper' type.id %}">
+                    <img class="im-e fl" width="321" height="179" src="{{ MEDIA_URL }}{{ type.image }}"/>
+                </a>
+                <a href="{%  url 'paper:type_paper' type.id %}">
+                    <p class="p-name fl">{{ type.name }}</p>
+                </a>
+                    <p class="logo-a">◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈ ◈</p>
+                <pre class="p-instr fl">{{ type.instr }}</pre>
+                <p class="click_num">
+                    ❤ 点击人数：{{ type.click }}
+                </p>
+                </div>
+            {% endif %}
+{#            {% if type.is_parents == 0  %}#}
+{#                    <p class="list-each fl">{{ type.name }}</p>#}
+{#                {% endif %}#}
+        {% endfor %}
+
+{% endblock %}

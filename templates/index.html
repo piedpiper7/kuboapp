@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}跬步在线做题平台-首页{% endblock %}
+{% load  staticfiles %}
+
+{% block content %}
+<div class="banner">
+    <div class="wp">
+        <div class="fl">
+            <div class="imgslide">
+                <ul class="imgs">
+                    {% for banner in all_banners %}
+                        <li>
+                        <a href="{{ banner.url }}">
+                            <img width="1023" height="512" style="margin-left: 88px;"
+                                 src="{{ MEDIA_URL }}{{ banner.image }}"/>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="unslider-arrow prev"></div>
+            <div class="unslider-arrow next"></div>
+        </div>
+    </div>
+</div>
+
+<div class="sum-list">
+    <p class="type-a">☺ 选择科目</p>
+    <div class="list-a">
+        <a href="{% url 'paper:type_paper' 98 %}"><span>▷</span> 编程语言 <span>◁</span></a>
+        <a href="{% url 'paper:type_paper' 108 %}"><span>▷</span> 数据结构 <span>◁</span></a>
+        <a href="{% url 'paper:type_paper' 104 %}"><span>▷</span> 算法 <span>◁</span></a>
+        <a href="{% url 'paper:type_paper' 118 %}"><span>▷</span> 数据库 <span>◁</span></a>
+        <a href="{% url 'paper:type_paper' 114 %}"><span>▷</span> 计算机基础 <span>◁</span></a>
+    </div>
+
+</div>
+
+{% endblock %}
